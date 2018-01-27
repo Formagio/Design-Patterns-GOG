@@ -2,7 +2,7 @@
 
 namespace DesignPatternsGOG.CreationalPatterns.AbstractFactory.Product
 {
-    class ProductA2 : AbstractProductA
+    class Wildebeest : Herbivore
     {
     }
 }

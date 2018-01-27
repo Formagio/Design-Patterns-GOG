@@ -3,11 +3,11 @@ using System;
 
 namespace DesignPatternsGOG.CreationalPatterns.AbstractFactory.Product
 {
-    class ProductB1 : AbstractProductB
+    class Wolf : Carnivore
     {
-        public override void Interact(AbstractProductA a)
+        public override void Eat(Herbivore herbivore)
         {
-            Console.WriteLine($"{GetType().Name} interacts with {a.GetType().Name}");
+            Console.WriteLine($"{GetType().Name} eats {herbivore.GetType().Name}");
         }
     }
 }

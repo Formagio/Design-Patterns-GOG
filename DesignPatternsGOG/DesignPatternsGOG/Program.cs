@@ -1,6 +1,7 @@
 ﻿using System;
 using AbstractFactory = DesignPatternsGOG.CreationalPatterns.AbstractFactory;
 using Builder = DesignPatternsGOG.CreationalPatterns.Builder;
+using FactoryMethod = DesignPatternsGOG.CreationalPatterns.FactoryMethod;
 
 namespace DesignPatternsGOG
 {
@@ -15,6 +16,9 @@ namespace DesignPatternsGOG
             Console.WriteLine("\nBuilder...");
             RunBuilder();
 
+            Console.WriteLine("\nFactory Method...");
+            RunFactoryMethod();
+
             // Wait for user input
             Console.ReadKey();
         }
@@ -25,15 +29,15 @@ namespace DesignPatternsGOG
         /// </summary>
         static void RunAbstractFactory()
         {
-            // Abstract factory #1
-            var factory1 = new AbstractFactory.ConcreteFactory1();
-            var client1 = new AbstractFactory.Client(factory1);
-            client1.Run();
+            // Create and run the African animal world
+            var africa = new AbstractFactory.AfricaFactory();
+            var world = new AbstractFactory.AnimalWorld(africa);
+            world.RunFoodChain();
 
-            // Abstract factory #2
-            var factory2 = new AbstractFactory.ConcreteFactory2();
-            var client2 = new AbstractFactory.Client(factory2);
-            client2.Run();            
+            // Create and run the American animal world
+            var america = new AbstractFactory.AmericaFactory();
+            world = new AbstractFactory.AnimalWorld(america);
+            world.RunFoodChain();            
         }
 
         /// <summary>
@@ -42,19 +46,46 @@ namespace DesignPatternsGOG
         /// </summary>
         static void RunBuilder()
         {
-            // Create director and builders
-            var director = new Builder.Director();
-            var b1 = new Builder.ConcreteBuilder1();
-            var b2 = new Builder.ConcreteBuilder2();
+            Builder.Base.VehicleBuilder builder;
 
-            // Construct two products
-            director.Construct(b1);
-            var p1 = b1.GetResult();
-            p1.Show();
+            // Create shop with vehicle builders
+            Builder.Shop shop = new Builder.Shop();
 
-            director.Construct(b2);
-            var p2 = b2.GetResult();
-            p2.Show();
+            // Construct and display vehicles
+            builder = new Builder.ScooterBuilder();
+            shop.Construct(builder);
+            builder.Vehicle.Show();
+
+            builder = new Builder.CarBuilder();
+            shop.Construct(builder);
+            builder.Vehicle.Show();
+
+            builder = new Builder.MotorCycleBuilder();
+            shop.Construct(builder);
+            builder.Vehicle.Show();
+        }
+
+        /// <summary>
+        /// The factory pattern is used to replace class constructors, abstracting the process of object generation 
+        /// so that the type of the object instantiated can be determined at run-time.
+        /// </summary>
+        static void RunFactoryMethod()
+        {
+            // Note: constructors call Factory Method
+            var documents = new FactoryMethod.Base.Document[2];
+
+            documents[0] = new FactoryMethod.Resume();
+            documents[1] = new FactoryMethod.Report();
+
+            // Display document pages
+            foreach (var document in documents)
+            {
+                Console.WriteLine("\n" + document.GetType().Name + "--");
+                foreach (var page in document.Pages)
+                {
+                    Console.WriteLine(" " + page.GetType().Name);
+                }
+            }
         }
     }
 }

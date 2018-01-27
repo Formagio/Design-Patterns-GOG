@@ -1,7 +1,6 @@
 ﻿namespace DesignPatternsGOG.CreationalPatterns.AbstractFactory.Product.Base
 {
-    abstract class AbstractProductB
+    abstract class Herbivore
     {
-        public abstract void Interact(AbstractProductA a);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace DesignPatternsGOG.CreationalPatterns.AbstractFactory.Base
 {
-    abstract class AbstractFactory
+    abstract class ContinentFactory
     {
-        public abstract AbstractProductA CreateProductA();
-        public abstract AbstractProductB CreateProductB();
+        public abstract Herbivore CreateHerbivore();
+        public abstract Carnivore CreateCarnivore();
     }
 }
