@@ -2,6 +2,7 @@
 using AbstractFactory = DesignPatternsGOG.CreationalPatterns.AbstractFactory;
 using Builder = DesignPatternsGOG.CreationalPatterns.Builder;
 using FactoryMethod = DesignPatternsGOG.CreationalPatterns.FactoryMethod;
+using Prototype = DesignPatternsGOG.CreationalPatterns.Prototype;
 
 namespace DesignPatternsGOG
 {
@@ -18,6 +19,9 @@ namespace DesignPatternsGOG
 
             Console.WriteLine("\nFactory Method...");
             RunFactoryMethod();
+
+            Console.WriteLine("\nPrototype...");
+            RunPrototype();
 
             // Wait for user input
             Console.ReadKey();
@@ -86,6 +90,31 @@ namespace DesignPatternsGOG
                     Console.WriteLine(" " + page.GetType().Name);
                 }
             }
+        }
+
+        /// <summary>
+        /// The prototype pattern is used to instantiate a new object by copying all of the properties of an 
+        /// existing object, creating an independent clone. This practise is particularly useful when the construction 
+        /// of a new object is inefficient.
+        /// </summary>
+        static void RunPrototype()
+        {
+            var colormanager = new Prototype.ColorManager();
+
+            // Initialize with standard colors
+            colormanager["red"] = new Prototype.Product.Color(255, 0, 0);
+            colormanager["green"] = new Prototype.Product.Color(0, 255, 0);
+            colormanager["blue"] = new Prototype.Product.Color(0, 0, 255);
+
+            // User adds personalized colors
+            colormanager["angry"] = new Prototype.Product.Color(255, 54, 0);
+            colormanager["peace"] = new Prototype.Product.Color(128, 211, 128);
+            colormanager["flame"] = new Prototype.Product.Color(211, 34, 20);
+
+            // User clones selected colors
+            var color1 = colormanager["red"].Clone() as Prototype.Product.Color;
+            var color2 = colormanager["peace"].Clone() as Prototype.Product.Color;
+            var color3 = colormanager["flame"].Clone() as Prototype.Product.Color;
         }
     }
 }
