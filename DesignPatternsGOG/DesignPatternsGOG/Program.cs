@@ -1,5 +1,6 @@
 ﻿using System;
 using AbstractFactory = DesignPatternsGOG.CreationalPatterns.AbstractFactory;
+using Adapter = DesignPatternsGOG.StructuralPatterns.Adapter;
 using Builder = DesignPatternsGOG.CreationalPatterns.Builder;
 using FactoryMethod = DesignPatternsGOG.CreationalPatterns.FactoryMethod;
 using Prototype = DesignPatternsGOG.CreationalPatterns.Prototype;
@@ -26,6 +27,10 @@ namespace DesignPatternsGOG
 
             Console.WriteLine("\nSingleton...");
             RunSingleton();
+
+            // Structural Patterns
+            Console.WriteLine("\nAdapter...");
+            RunAdapter();
 
             // Wait for user input
             Console.ReadKey();
@@ -146,6 +151,27 @@ namespace DesignPatternsGOG
                 string serverName = balancer.NextServer.Name;
                 Console.WriteLine($"Dispatch request to: {serverName}");
             }
+        }
+
+        /// <summary>
+        /// The adapter pattern is used to provide a link between two otherwise incompatible types by 
+        /// wrapping the "adaptee" with a class that supports the interface required by the client.
+        /// </summary>
+        static void RunAdapter()
+        {
+            // Non-adapted chemical compound
+            var unknown = new Adapter.Compound("Unknown");
+            unknown.Display();
+
+            // Adapted chemical compounds
+            var water = new Adapter.RichCompound("Water");
+            water.Display();
+
+            var benzene = new Adapter.RichCompound("Benzene");
+            benzene.Display();
+
+            var ethanol = new Adapter.RichCompound("Ethanol");
+            ethanol.Display();
         }
     }
 }

@@ -17,7 +17,6 @@
     <Folder Include="BehavioralPatterns\Strategy\" />
     <Folder Include="BehavioralPatterns\State\" />
     <Folder Include="BehavioralPatterns\Observer\" />
-    <Folder Include="StructuralPatterns\Adapter\" />
     <Folder Include="StructuralPatterns\Bridge\" />
     <Folder Include="StructuralPatterns\Composite\" />
     <Folder Include="StructuralPatterns\Decorator\" />

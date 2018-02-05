@@ -1,4 +1,4 @@
-﻿namespace DesignPatternsGOG.CreationalPatterns.Singleton.Product
+﻿namespace DesignPatternsGOG.CreationalPatterns.Singleton
 {
     /// <summary>
     /// Represents a server machine

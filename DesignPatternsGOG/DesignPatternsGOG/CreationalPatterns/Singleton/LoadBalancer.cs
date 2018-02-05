@@ -1,5 +1,4 @@
-﻿using DesignPatternsGOG.CreationalPatterns.Singleton.Product;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace DesignPatternsGOG.CreationalPatterns.Singleton
