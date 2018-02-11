@@ -1,6 +1,7 @@
 ﻿using System;
 using AbstractFactory = DesignPatternsGOG.CreationalPatterns.AbstractFactory;
 using Adapter = DesignPatternsGOG.StructuralPatterns.Adapter;
+using Bridge = DesignPatternsGOG.StructuralPatterns.Bridge;
 using Builder = DesignPatternsGOG.CreationalPatterns.Builder;
 using FactoryMethod = DesignPatternsGOG.CreationalPatterns.FactoryMethod;
 using Prototype = DesignPatternsGOG.CreationalPatterns.Prototype;
@@ -31,6 +32,9 @@ namespace DesignPatternsGOG
             // Structural Patterns
             Console.WriteLine("\nAdapter...");
             RunAdapter();
+
+            Console.WriteLine("\nBridge...");
+            RunBridge();
 
             // Wait for user input
             Console.ReadKey();
@@ -172,6 +176,30 @@ namespace DesignPatternsGOG
 
             var ethanol = new Adapter.RichCompound("Ethanol");
             ethanol.Display();
+        }
+
+        /// <summary>
+        /// The bridge pattern is used to separate the abstract elements of a class from the implementation details, 
+        /// providing the means to replace the implementation details without modifying the abstraction.
+        /// </summary>
+        static void RunBridge()
+        {
+            // Create RefinedAbstraction
+            var customers = new Bridge.Customers("Chicago")
+            {
+                // Set ConcreteImplementor
+                Data = new Bridge.CustomersData()
+            };
+                        
+            // Exercise the bridge
+            customers.Show();
+            customers.Next();
+            customers.Show();
+            customers.Next();
+            customers.Show();
+            customers.Add("Henry Velasquez");
+
+            customers.ShowAll();
         }
     }
 }
