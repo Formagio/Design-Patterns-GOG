@@ -10,6 +10,7 @@ using Decorator = DesignPatternsGOG.StructuralPatterns.Decorator;
 using Facade = DesignPatternsGOG.StructuralPatterns.Facade;
 using FactoryMethod = DesignPatternsGOG.CreationalPatterns.FactoryMethod;
 using FlyWeight = DesignPatternsGOG.StructuralPatterns.Flyweight;
+using Interpreter = DesignPatternsGOG.BehavioralPatterns.Interpreter;
 using Prototype = DesignPatternsGOG.CreationalPatterns.Prototype;
 using Proxy = DesignPatternsGOG.StructuralPatterns.Proxy;
 using Singleton = DesignPatternsGOG.CreationalPatterns.Singleton;
@@ -64,6 +65,9 @@ namespace DesignPatternsGOG
 
             Console.WriteLine("\nCommand...");
             RunCommand();
+
+            Console.WriteLine("\nInterpreter...");
+            RunInterpreter();
 
             // Wait for user input
             Console.ReadKey();
@@ -430,6 +434,25 @@ namespace DesignPatternsGOG
             {
                 Console.WriteLine("Command \"ON\" or \"OFF\" is required.");
             }
+        }
+
+        /// <summary>
+        /// This pattern evaluates/ interprets the instructions written in a language grammar or notations. 
+        /// This pattern involves implementing an expression interface which tells to interpret a particular context. 
+        /// This pattern is used in the compilers or parsers or Macro expansions.
+        /// This pattern is commonly used in the menu systems of many applications such as Editor, IDE etc.
+        /// http://www.dotnettricks.com/learn/designpatterns/interpreter-design-pattern-c-sharp
+        /// </summary>
+        static void RunInterpreter()
+        {
+            var context = new Interpreter.Context("Dot Net context");
+            var root = new Interpreter.NonTerminal.NonterminalExpression
+            {
+                Expression1 = new Interpreter.Terminal.TerminalExpression(),
+                Expression2 = new Interpreter.Terminal.TerminalExpression()
+            };
+
+            root.Interpret(context);
         }
     }
 }
