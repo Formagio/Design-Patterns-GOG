@@ -4,6 +4,7 @@ using Adapter = DesignPatternsGOG.StructuralPatterns.Adapter;
 using Bridge = DesignPatternsGOG.StructuralPatterns.Bridge;
 using Builder = DesignPatternsGOG.CreationalPatterns.Builder;
 using ChainOfResponsibility = DesignPatternsGOG.BehavioralPatterns.ChainOfResponsibility;
+using Command = DesignPatternsGOG.BehavioralPatterns.Command;
 using Composite = DesignPatternsGOG.StructuralPatterns.Composite;
 using Decorator = DesignPatternsGOG.StructuralPatterns.Decorator;
 using Facade = DesignPatternsGOG.StructuralPatterns.Facade;
@@ -60,6 +61,9 @@ namespace DesignPatternsGOG
             // Behavioral Patterns
             Console.WriteLine("\nChain Of Responsibility...");
             RunChainOfResponsibility();
+
+            Console.WriteLine("\nCommand...");
+            RunCommand();
 
             // Wait for user input
             Console.ReadKey();
@@ -394,6 +398,38 @@ namespace DesignPatternsGOG
 
             loan = new ChainOfResponsibility.Client.Loan { Number = 2036, Amount = 156200.00, Purpose = "House Loan" };
             rohit.ProcessRequest(loan);
+        }
+
+        /// <summary>
+        /// In this pattern, a request is wrapped under an object as a command and passed to invoker object. 
+        /// Invoker object pass the command to the appropriate object which can handle it and that object executes the command. 
+        /// This handles the request in traditional ways like as queuing and callbacks.
+        /// This pattern is commonly used in the menu systems of many applications such as Editor, IDE etc.
+        /// http://www.dotnettricks.com/learn/designpatterns/command-design-pattern-dotnet
+        /// </summary>
+        static void RunCommand()
+        {
+            Console.WriteLine("Enter Commands (ON/OFF): ");
+            string cmd = Console.ReadLine();
+
+            var lamp = new Command.Receiver.Light();
+            Command.ICommand switchUp = new Command.ConcreteCommand.FlipUpCommand(lamp);
+            Command.ICommand switchDown = new Command.ConcreteCommand.FlipDownCommand(lamp);
+
+            var @switch = new Command.Invoker.Switch();
+
+            if (cmd == "ON")
+            {
+                @switch.StoreAndExecute(switchUp);
+            }
+            else if (cmd == "OFF")
+            {
+                @switch.StoreAndExecute(switchDown);
+            }
+            else
+            {
+                Console.WriteLine("Command \"ON\" or \"OFF\" is required.");
+            }
         }
     }
 }
