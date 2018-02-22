@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BehavioralPatterns\ChainOfResponsibility\" />
     <Folder Include="BehavioralPatterns\Command\" />
     <Folder Include="BehavioralPatterns\Interpreter\" />
     <Folder Include="BehavioralPatterns\Iterator\" />

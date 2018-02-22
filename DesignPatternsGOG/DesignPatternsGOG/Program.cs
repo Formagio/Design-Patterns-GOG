@@ -3,6 +3,7 @@ using AbstractFactory = DesignPatternsGOG.CreationalPatterns.AbstractFactory;
 using Adapter = DesignPatternsGOG.StructuralPatterns.Adapter;
 using Bridge = DesignPatternsGOG.StructuralPatterns.Bridge;
 using Builder = DesignPatternsGOG.CreationalPatterns.Builder;
+using ChainOfResponsibility = DesignPatternsGOG.BehavioralPatterns.ChainOfResponsibility;
 using Composite = DesignPatternsGOG.StructuralPatterns.Composite;
 using Decorator = DesignPatternsGOG.StructuralPatterns.Decorator;
 using Facade = DesignPatternsGOG.StructuralPatterns.Facade;
@@ -55,6 +56,10 @@ namespace DesignPatternsGOG
 
             Console.WriteLine("\nProxy...");
             RunProxy();
+
+            // Behavioral Patterns
+            Console.WriteLine("\nChain Of Responsibility...");
+            RunChainOfResponsibility();
 
             // Wait for user input
             Console.ReadKey();
@@ -361,6 +366,34 @@ namespace DesignPatternsGOG
         {
             var proxy = new Proxy.ProxyClient();
             Console.WriteLine($"Data from Proxy Client = {proxy.GetData()}");
+        }
+
+        /// <summary>
+        /// The chain of responsibility pattern is used to process a list or chain of various types of request and each of them may be handle by a different handler. 
+        /// This pattern decouples sender and receiver of a request based on type of request.
+        /// In this pattern, normally each receiver (handler) contains reference to another receiver. 
+        /// If one receiver cannot handle the request then it passes the same to the next receiver and so on.
+        /// http://www.dotnettricks.com/learn/designpatterns/chain-of-responsibility-design-pattern-dotnet
+        /// </summary>
+        static void RunChainOfResponsibility()
+        {
+            // Setup Chain of Responsibility
+            ChainOfResponsibility.Handler.Approver rohit = new ChainOfResponsibility.ConcreteHandler.Clerk();
+            ChainOfResponsibility.Handler.Approver rahul = new ChainOfResponsibility.ConcreteHandler.AssistantManager();
+            ChainOfResponsibility.Handler.Approver manoj = new ChainOfResponsibility.ConcreteHandler.Manager();
+
+            rohit.Successor = rahul;
+            rahul.Successor = manoj;
+
+            // Generate and process loan requests
+            var loan = new ChainOfResponsibility.Client.Loan { Number = 2034, Amount = 24000.00, Purpose = "Laptop Loan" };
+            rohit.ProcessRequest(loan);
+
+            loan = new ChainOfResponsibility.Client.Loan { Number = 2035, Amount = 42000.10, Purpose = "Bike Loan" };
+            rohit.ProcessRequest(loan);
+
+            loan = new ChainOfResponsibility.Client.Loan { Number = 2036, Amount = 156200.00, Purpose = "House Loan" };
+            rohit.ProcessRequest(loan);
         }
     }
 }
