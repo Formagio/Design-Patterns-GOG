@@ -11,6 +11,7 @@ using Facade = DesignPatternsGOG.StructuralPatterns.Facade;
 using FactoryMethod = DesignPatternsGOG.CreationalPatterns.FactoryMethod;
 using FlyWeight = DesignPatternsGOG.StructuralPatterns.Flyweight;
 using Interpreter = DesignPatternsGOG.BehavioralPatterns.Interpreter;
+using Iterator = DesignPatternsGOG.BehavioralPatterns.Iterator;
 using Prototype = DesignPatternsGOG.CreationalPatterns.Prototype;
 using Proxy = DesignPatternsGOG.StructuralPatterns.Proxy;
 using Singleton = DesignPatternsGOG.CreationalPatterns.Singleton;
@@ -68,6 +69,9 @@ namespace DesignPatternsGOG
 
             Console.WriteLine("\nInterpreter...");
             RunInterpreter();
+
+            Console.WriteLine("\nIterator...");
+            RunIterator();
 
             // Wait for user input
             Console.ReadKey();
@@ -453,6 +457,29 @@ namespace DesignPatternsGOG
             };
 
             root.Interpret(context);
+        }
+
+        /// <summary>
+        /// This pattern is provides a way to access the elements of a collection object in sequential manner 
+        /// without knowing its underlying structure.
+        /// This pattern is commonly used in the menu systems of many applications such as Editor, IDE etc.
+        /// http://www.dotnettricks.com/learn/designpatterns/iterator-design-pattern-c-sharp
+        /// </summary>
+        static void RunIterator()
+        {
+            var aggr = new Iterator.Aggregate.ConcreteAggregate();
+            aggr.Add("One");
+            aggr.Add("Two");
+            aggr.Add("Three");
+            aggr.Add("Four");
+            aggr.Add("Five");
+
+            var iterator = aggr.CreateIterator();
+            while (iterator.Next())
+            {
+                string item = (string)iterator.Current;
+                Console.WriteLine(item);
+            }
         }
     }
 }
