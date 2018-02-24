@@ -12,6 +12,7 @@ using FactoryMethod = DesignPatternsGOG.CreationalPatterns.FactoryMethod;
 using FlyWeight = DesignPatternsGOG.StructuralPatterns.Flyweight;
 using Interpreter = DesignPatternsGOG.BehavioralPatterns.Interpreter;
 using Iterator = DesignPatternsGOG.BehavioralPatterns.Iterator;
+using Mediator = DesignPatternsGOG.BehavioralPatterns.Mediator;
 using Prototype = DesignPatternsGOG.CreationalPatterns.Prototype;
 using Proxy = DesignPatternsGOG.StructuralPatterns.Proxy;
 using Singleton = DesignPatternsGOG.CreationalPatterns.Singleton;
@@ -72,6 +73,9 @@ namespace DesignPatternsGOG
 
             Console.WriteLine("\nIterator...");
             RunIterator();
+
+            Console.WriteLine("\nMediator...");
+            RunMediator();
 
             // Wait for user input
             Console.ReadKey();
@@ -417,8 +421,8 @@ namespace DesignPatternsGOG
         /// </summary>
         static void RunCommand()
         {
-            Console.WriteLine("Enter Commands (ON/OFF): ");
-            string cmd = Console.ReadLine();
+            string cmd = "ON"; // Read command from user
+            Console.WriteLine($"Enter Commands (ON/OFF): {cmd}");            
 
             var lamp = new Command.Receiver.Light();
             Command.ICommand switchUp = new Command.ConcreteCommand.FlipUpCommand(lamp);
@@ -480,6 +484,23 @@ namespace DesignPatternsGOG
                 string item = (string)iterator.Current;
                 Console.WriteLine(item);
             }
+        }
+
+        /// <summary>
+        /// This pattern allows multiple objects to communicate with each other’s without knowing each other’s structure. 
+        /// This pattern defines an object which encapsulates how the objects will interact with each other’s and supports 
+        /// easy maintainability of the code by loose coupling.
+        /// This pattern is commonly used in the menu systems of many applications such as Editor, IDE etc.
+        /// http://www.dotnettricks.com/learn/designpatterns/mediator-design-pattern-c-sharp
+        /// </summary>
+        static void RunMediator()
+        {
+            var mediator = new Mediator.ConcreteMediator();
+            mediator.ColleagueA = new Mediator.ConcreteColleagueA(mediator);
+            mediator.ColleagueB = new Mediator.ConcreteColleagueB(mediator);
+
+            mediator.ColleagueA.Send("Message to colleague B");
+            mediator.ColleagueB.Send("Message to colleague A");
         }
     }
 }
